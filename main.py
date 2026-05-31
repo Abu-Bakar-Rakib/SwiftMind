@@ -14,7 +14,14 @@ st.markdown("""
         background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
         color: #f0f0f0;
     }
-
+    .main-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        margin-bottom: 1.5rem;
+    }
     h1 {
         text-align: center;
         background: linear-gradient(90deg, #a78bfa, #60a5fa, #34d399);
@@ -24,14 +31,12 @@ st.markdown("""
         font-weight: 800 !important;
         margin-bottom: 0.2rem !important;
     }
-
     .subtitle {
         text-align: center;
         color: #94a3b8;
         font-size: 0.9rem;
         margin-bottom: 1.5rem;
     }
-
     .badge {
         display: inline-block;
         background: rgba(167,139,250,0.15);
@@ -42,8 +47,6 @@ st.markdown("""
         color: #c4b5fd;
         margin: 0 4px;
     }
-
-    /* ── Chat bubbles ── */
     .user-bubble {
         display: flex;
         justify-content: flex-end;
@@ -59,7 +62,6 @@ st.markdown("""
         line-height: 1.6;
         box-shadow: 0 4px 15px rgba(124,58,237,0.35);
     }
-
     .ai-bubble {
         display: flex;
         justify-content: flex-start;
@@ -81,8 +83,6 @@ st.markdown("""
         line-height: 1.6;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-
-    /* ── Thinking bubble ── */
     .thinking-bubble {
         display: flex;
         align-items: center;
@@ -108,26 +108,38 @@ st.markdown("""
         40% { opacity: 1; transform: scale(1.1); }
     }
 
-    /* ── Input area ── */
+    /* ── FIX: hide label box ── */
     .stTextArea label { display: none !important; }
     .stTextArea > div:first-child { display: none !important; }
-    .stTextArea textarea {
-        background: rgba(255,255,255,0.07) !important;
+
+    /* ── FIX: force dark background + white text on ALL states ── */
+    .stTextArea textarea,
+    .stTextArea textarea:focus,
+    .stTextArea textarea:active,
+    .stTextArea textarea:hover,
+    div[data-baseweb="textarea"] textarea,
+    div[data-baseweb="base-input"] textarea {
+        background-color: #1a1535 !important;
+        color: #f1f5f9 !important;
+        -webkit-text-fill-color: #f1f5f9 !important;
         border: 1px solid rgba(167,139,250,0.4) !important;
         border-radius: 16px !important;
-        color: #f1f5f9 !important;
         font-size: 0.97rem !important;
         padding: 0.85rem 1rem !important;
         resize: none !important;
         caret-color: #a78bfa !important;
     }
-    .stTextArea textarea:focus {
-        border-color: #a78bfa !important;
-        box-shadow: 0 0 0 2px rgba(167,139,250,0.2) !important;
+    .stTextArea textarea::placeholder,
+    div[data-baseweb="textarea"] textarea::placeholder {
+        color: #64748b !important;
+        -webkit-text-fill-color: #64748b !important;
     }
-    .stTextArea textarea::placeholder { color: #64748b !important; }
+    div[data-baseweb="textarea"],
+    div[data-baseweb="base-input"] {
+        background-color: #1a1535 !important;
+        border-radius: 16px !important;
+    }
 
-    /* ── Send button ── */
     .stButton > button {
         background: linear-gradient(135deg, #7c3aed, #2563eb) !important;
         color: white !important;
@@ -145,8 +157,6 @@ st.markdown("""
         transform: translateY(-2px) !important;
         box-shadow: 0 8px 24px rgba(124,58,237,0.55) !important;
     }
-
-    /* ── Clear button ── */
     .clear-btn > button {
         background: rgba(255,255,255,0.05) !important;
         color: #94a3b8 !important;
@@ -160,15 +170,11 @@ st.markdown("""
         background: rgba(255,255,255,0.1) !important;
         transform: none !important;
     }
-
-    /* ── Divider ── */
     .chat-divider {
         border: none;
         border-top: 1px solid rgba(255,255,255,0.07);
         margin: 1rem 0;
     }
-
-    /* ── Welcome card ── */
     .welcome-card {
         text-align: center;
         padding: 2.5rem 1rem;
@@ -176,13 +182,11 @@ st.markdown("""
     }
     .welcome-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
     .welcome-card p { font-size: 0.95rem; }
-
     #MainMenu, footer, header { visibility: hidden; }
     .stSpinner > div { border-top-color: #a78bfa !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Init ─────────────────────────────────────────────────────────────────────
 _k = b"Z3NrX0RQT0lvZEpYSDdraUxjbkcyNXRUV0dkeWIzRllXWDF6akZlQmRsYWZ4MmlXUHlVOGdNdUs="
 API_KEY = base64.b64decode(_k).decode()
 llm = ChatGroq(model="llama-3.1-8b-instant", api_key=API_KEY)
@@ -190,7 +194,6 @@ llm = ChatGroq(model="llama-3.1-8b-instant", api_key=API_KEY)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# ── Header ───────────────────────────────────────────────────────────────────
 st.markdown("<h1>🤖 AI Agent</h1>", unsafe_allow_html=True)
 st.markdown(
     '<p class="subtitle">'
@@ -201,7 +204,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ── Clear chat button ─────────────────────────────────────────────────────────
 if st.session_state.messages:
     col_spacer, col_clear = st.columns([5, 1])
     with col_clear:
@@ -213,7 +215,6 @@ if st.session_state.messages:
 
 st.markdown('<hr class="chat-divider">', unsafe_allow_html=True)
 
-# ── Chat History ─────────────────────────────────────────────────────────────
 if not st.session_state.messages:
     st.markdown("""
         <div class="welcome-card">
@@ -239,9 +240,7 @@ else:
 
 st.markdown('<hr class="chat-divider">', unsafe_allow_html=True)
 
-# ── Input Bar ─────────────────────────────────────────────────────────────────
 col_input, col_btn = st.columns([5, 1])
-
 with col_input:
     user_input = st.text_area(
         "Message",
@@ -250,16 +249,13 @@ with col_input:
         key=f"input_{len(st.session_state.messages)}",
         label_visibility="collapsed"
     )
-
 with col_btn:
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
     send = st.button("➤", use_container_width=True)
 
-# ── Handle Send ───────────────────────────────────────────────────────────────
 if send:
     if user_input.strip():
         st.session_state.messages.append({"role": "user", "content": user_input.strip()})
-
         with st.spinner(""):
             st.markdown("""
                 <div class="thinking-bubble">
@@ -278,7 +274,6 @@ if send:
                 st.session_state.messages.append({"role": "assistant", "content": response.content})
             except Exception as e:
                 st.session_state.messages.append({"role": "assistant", "content": f"❌ Error: {str(e)}"})
-
         st.rerun()
     else:
         st.warning("⚠️ Please type a message first.")
