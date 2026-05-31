@@ -1,78 +1,39 @@
-# 🤖 AI Agent – Powered by LLaMA 3.1 (Groq)
+⚡ SwiftMind
+A ChatGPT-style AI chat app built with Streamlit and LangChain, powered by LLaMA 3.1 8B on Groq.
 
-A simple AI Agent built with **Streamlit** and **LangChain**, powered by **LLaMA 3.1 on Groq**.
-Users can enter their **Groq API Key** to interact with the model and ask any question directly from the web interface.
+🚀 Getting Started
+1. Clone the repo
+bashgit clone https://github.com/your-username/swiftmind.git
+cd swiftmind
+2. Install dependencies
+bashpip install streamlit langchain-groq langchain-core
+3. Run
+bashstreamlit run app.py
 
-## 🚀 Demo
+📦 Requirements
+streamlit>=1.35.0
+langchain-groq>=0.1.6
+langchain-core>=0.2.0
+
+📁 Project Structure
+swiftmind/
+├── app.py            # Main app
+├── requirements.txt  # Dependencies
+└── README.md
 
 🔗 Live App: [AI Agent (Streamlit)](https://aiagent-dkmjkcy9632mbypgbppnbs.streamlit.app/#ai-agent-powered-by-l-la-ma-3-1-groq)
+⚙️ Switching Models
+Change the model in app.py:
+pythonllm = ChatGroq(model="llama-3.1-8b-instant", api_key=API_KEY)
+ModelSpeedllama-3.1-8b-instantFastestllama-3.1-70b-versatileBalancedmixtral-8x7b-32768High quality
 
-## ✨ Features
+🛠 Built With
 
-* Interactive chatbot powered by **LLaMA 3.1 (Groq)**
-* Simple and lightweight **Streamlit UI**
-* Secure API key input (not stored)
-* Instant answers with a one-click response button
-
-
-Create a virtual environment (recommended):
-
-```bash
-python -m venv venv
-source venv/bin/activate   # On Linux/Mac
-venv\Scripts\activate      # On Windows
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-pip install streamlit
-
-Run the App:
-Start the Streamlit app:
-streamlit run main.py
-Open the link in your browser (usually http://localhost:8501).
+Streamlit
+LangChain
+Groq
+LLaMA 3.1 — Meta AI
 
 
-## 🔑 Usage
-
-1. Get a **Groq API key** from [Groq Console](https://console.groq.com/keys).
-2. Paste the key into the input box.
-3. Type your question into the text area.
-4. Click **Generate Response** and get instant answers.
-
-## 📂 Project Structure
-
-├── main.py             # Streamlit app source code
-├── requirements.txt    # Project dependencies
-└── README.md           # Documentation
-
-
-
-## 📦 Requirements
-
-From `requirements.txt`:
-
-* `streamlit`
-* `langchain`
-* `langchain-groq`
-* `groq`
-
----
-
-## 🌐 Deployment
-
-You can deploy this app on:
-
-* [Streamlit Cloud](https://streamlit.io/cloud)
-
-For Streamlit Cloud:
-
-1. Push this repo to GitHub.
-2. Connect GitHub repo on [Streamlit Cloud](https://share.streamlit.io/).
-3. Set up app with `main.py` as entry point.
-4. Deploy!
-
-## 📜 License
-This project is open-source and available under the [MIT License](LICENSE).
+SwiftMind — Fast answers. Zero wait.
 
