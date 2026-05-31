@@ -95,7 +95,7 @@ llm = ChatGroq(model="llama-3.1-8b-instant", api_key=API_KEY)
 ## Deployment
 
 The application is deployed and available at:
-[SwiftMind on Streamlit Cloud](https://aiagent-dkmjkcy9632mbypgbppnbs.streamlit.app/)
+[SwiftMind on Streamlit Cloud](https://swiftmind-phxy2qqxtiwqojkpk823rp.streamlit.app/)
 
 ## Getting Your Groq API Key
 
