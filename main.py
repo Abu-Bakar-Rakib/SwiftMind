@@ -140,6 +140,23 @@ st.markdown("""
         border-radius: 16px !important;
     }
 
+    /* ── FIX: remove white background from chat input container ── */
+    div[data-testid="stChatInput"],
+    div[data-testid="stChatInput"] > div {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Make the send icon button match our theme */
+    div[data-testid="stChatInput"] button {
+        background-color: transparent !important;
+        color: #2dd4bf !important;
+    }
+    div[data-testid="stChatInput"] button:hover {
+        color: #0d9488 !important;
+    }
+
     .stButton > button {
         background: linear-gradient(135deg, #0d9488, #0891b2) !important;
         color: white !important;
