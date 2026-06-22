@@ -177,7 +177,8 @@ st.markdown("""
     }
     .welcome-card {
         text-align: center;
-        padding: 2.5rem 1rem;
+        padding: 4rem 1rem 2rem;
+        margin-top: -2rem;
         color: #475569;
     }
     .welcome-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
