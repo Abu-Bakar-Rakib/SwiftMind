@@ -140,27 +140,6 @@ st.markdown("""
         border-radius: 16px !important;
     }
 
-    /* ── FIX: remove white background from chat input container ── */
-    div[data-testid="stBottom"],
-    div[data-testid="stBottomBlockContainer"],
-    div[data-testid="stChatFloatingInputContainer"],
-    div[data-testid="stChatInput"],
-    div[data-testid="stChatInput"] > div {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Make the send icon button match our theme */
-    div[data-testid="stChatInput"] button {
-        background-color: transparent !important;
-        color: #2dd4bf !important;
-    }
-    div[data-testid="stChatInput"] button:hover {
-        color: #0d9488 !important;
-    }
-
     .stButton > button {
         background: linear-gradient(135deg, #0d9488, #0891b2) !important;
         color: white !important;
@@ -262,9 +241,20 @@ else:
 
 st.markdown('<hr class="chat-divider">', unsafe_allow_html=True)
 
-user_input = st.chat_input("Type your message here Rakib Vai...")
+col_input, col_btn = st.columns([5, 1])
+with col_input:
+    user_input = st.text_area(
+        "Message",
+        placeholder="Type your message here Rakib Vai...",
+        height=68,
+        key=f"input_{len(st.session_state.messages)}",
+        label_visibility="collapsed"
+    )
+with col_btn:
+    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+    send = st.button("➤", use_container_width=True)
 
-if user_input:
+if send:
     if user_input.strip():
         st.session_state.messages.append({"role": "user", "content": user_input.strip()})
         with st.spinner(""):
