@@ -179,7 +179,7 @@ st.markdown("""
         text-align: center;
         padding: 6rem 1rem 2rem;
         margin-top: -10rem;
-        color: #475569;
+        color: #FFFFFF;
     }
     .welcome-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
     .welcome-card p { font-size: 0.95rem; }
