@@ -178,7 +178,7 @@ st.markdown("""
     .welcome-card {
         text-align: center;
         padding: 6rem 1rem 2rem;
-        margin-top: -10rem;
+        margin-top: -11rem;
         color: #5eead4;
     }
     .welcome-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
@@ -241,20 +241,9 @@ else:
 
 st.markdown('<hr class="chat-divider">', unsafe_allow_html=True)
 
-col_input, col_btn = st.columns([5, 1])
-with col_input:
-    user_input = st.text_area(
-        "Message",
-        placeholder="Type your message here Rakib Vai...",
-        height=68,
-        key=f"input_{len(st.session_state.messages)}",
-        label_visibility="collapsed"
-    )
-with col_btn:
-    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-    send = st.button("➤", use_container_width=True)
+user_input = st.chat_input("Type your message here Rakib Vai...")
 
-if send:
+if user_input:
     if user_input.strip():
         st.session_state.messages.append({"role": "user", "content": user_input.strip()})
         with st.spinner(""):
